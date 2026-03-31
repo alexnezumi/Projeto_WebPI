@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca | Rolagem Crítica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div class="topbar"><marquee behavior="scroll" direction="left">Frete grátis em compras acima de R$ 200,00 para as regiões Sul e Sudeste</marquee></div>
+    <header>
+        <a href="index.html" class="logo">Rolagem Crítica</a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando?">
+            <button type="submit" onclick="realizarBusca(event)">Buscar</button>
+        </div>
+        <div class="header-actions">
+            <a href="login.html">Minha Conta</a>
+            <a href="carrinho.html">Carrinho (0)</a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="rpg-de-mesa.html">RPG de Mesa</a></li>
+            <li><a href="board-games.html">Board Games</a></li>
+            <li><a href="literatura.html">Literatura Fantástica</a></li>
+            <li><a href="acessorios.html">Acessórios & Dados</a></li>
+            <li><a href="pre-vendas.html">Pré-vendas</a></li>
+        </ul>
+    </nav>
+    <main class="section-container">
+        <h1 class="section-title" id="search-title">Resultados da Busca</h1>
+        
+        <div class="product-grid" id="search-grid">
+            <div class="product-card">
+                <a href="produto.html"><img src="https://images.unsplash.com/photo-1614294149010-950b698f72c0?auto=format&fit=crop&q=80&w=400" alt="Livro Básico RPG" class="product-img"></a>
+                <div class="product-info">
+                    <span class="product-category">Livro Básico</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Sistema D20 Moderno - Edição Revisada</h3></a>
+                    <div class="product-price">
+                        R$ 159,90
+                        <small>ou 6x de R$ 26,65 sem juros</small>
+                    </div>
+                    <button class="btn-add" onclick="alert('Item adicionado ao carrinho!'); window.location.href='carrinho.html';">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <a href="produto.html"><img src="https://down-br.img.susercontent.com/file/sg-11134201-8227t-mheg7balp7nz3f" alt="Conjunto de Dados Mutantes" class="product-img"></a>
+                <div class="product-info">
+                    <span class="product-category">Acessórios</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Conjunto de Dados Poliedrais - Nebulosa</h3></a>
+                    <div class="product-price">
+                        R$ 49,90
+                        <small>ou 2x de R$ 24,95 sem juros</small>
+                    </div>
+                    <button class="btn-add" onclick="alert('Item adicionado ao carrinho!'); window.location.href='carrinho.html';">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <a href="produto.html"><img src="https://i0.wp.com/orbedosdragoes.com/wp-content/uploads/2022/01/Eradascinzas_Capa.jpg?fit=1261%2C712&ssl=1" alt="Livro Jogo" class="product-img"></a>
+                <div class="product-info">
+                    <span class="product-category">Livro-Jogo</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Labirinto da Morte - Edição de Colecionador</h3></a>
+                    <div class="product-price">
+                        R$ 89,90
+                        <small>ou 3x de R$ 29,96 sem juros</small>
+                    </div>
+                    <button class="btn-add" onclick="alert('Item adicionado ao carrinho!'); window.location.href='carrinho.html';">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <a href="produto.html"><img src="https://images.tcdn.com.br/img/img_prod/599593/escudo_do_mestre_para_rpg_premium_d20_rpg_1_20260317165401_6b299f74dc63.jpg" alt="Escudo do Mestre" class="product-img"></a>
+                <div class="product-info">
+                    <span class="product-category">Suplementos</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Escudo do Mestre (Cenário de Fantasia)</h3></a>
+                    <div class="product-price">
+                        R$ 79,90
+                        <small>ou 3x de R$ 26,63 sem juros</small>
+                    </div>
+                    <button class="btn-add" onclick="alert('Item adicionado ao carrinho!'); window.location.href='carrinho.html';">Adicionar</button>
+                </div>
+            </div>
+
+<div class="product-card">
+                <img src="https://images.unsplash.com/photo-1544365558-35aa4afcf11f?auto=format&fit=crop&q=80&w=400" alt="Guia do Mestre" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Suplementos</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">O Guia Definitivo do Mestre de Jogo</h3></a>
+                    <div class="product-price">
+                        R$ 149,90
+                        <small>ou 5x de R$ 29,98 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <img src="https://cdn.awsli.com.br/800x800/495/495351/produto/74370621/2b5f98adea.jpg" alt="Bestiírio" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Expansão</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Bestiário Fantástico Vol. 1</h3></a>
+                    <div class="product-price">
+                        R$ 120,00
+                        <small>ou 4x de R$ 30,00 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <img src="https://images.tcdn.com.br/img/img_prod/558884/abyss_jogo_de_tabuleiro_galapagos_aby001_888862962_2_20170531150952.jpg" alt="Board Game Estratígia" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Estratígia</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Colonos do Abismo: O Jogo de Tabuleiro</h3></a>
+                    <div class="product-price">
+                        R$ 299,90
+                        <small>ou 6x de R$ 49,98 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <img src="https://static.wixstatic.com/media/0f48ef_cbb11dc4bd844b2c916fc0b10f1950e0~mv2.png/v1/fill/w_520,h_693,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/0f48ef_cbb11dc4bd844b2c916fc0b10f1950e0~mv2.png" alt="Jogo de Cartas" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Card Game</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Batalha dos Reinos: Deck Base</h3></a>
+                    <div class="product-price">
+                        R$ 89,90
+                        <small>ou 2x de R$ 44,95 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card">
+                <img src="https://thumbs.dreamstime.com/b/drag%C3%A3o-dourado-numa-pilha-de-ouro-bonito-grande-e-tesouro-olha-para-uma-pedra-rubi-169603630.jpg" alt="Livro Fantasia" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Romance</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">A Queda do Dragão Dourado (Capa Dura)</h3></a>
+                    <div class="product-price">
+                        R$ 69,90
+                        <small>ou 2x de R$ 34,95 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+
+<div class="product-card">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400" alt="Bandeja de Dados" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Acessórios de Mesa</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Bandeja de Dados em Couro Ecológico</h3></a>
+                    <div class="product-price">
+                        R$ 89,90
+                        <small>ou 3x de R$ 29,96 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+
+<div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61UkdWQmw1L._AC_UF894,1000_QL80_.jpg" alt="Miniatura Aventureira" class="product-img">
+                <div class="product-info">
+                    <span class="product-category">Miniaturas</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Pack de Miniaturas - Aventureiros Básicos</h3></a>
+                    <div class="product-price">
+                        R$ 120,00
+                        <small>ou 4x de R$ 30,00 sem juros</small>
+                    </div>
+                    <button class="btn-add">Adicionar</button>
+                </div>
+            </div>
+<div class="product-card" style="border: 2px solid #c91818;">
+                <img src="https://i0.wp.com/orbedosdragoes.com/wp-content/uploads/2022/01/Eradascinzas_Capa.jpg?fit=1261%2C712&ssl=1" alt="Breve Laníamento" class="product-img" style="filter: grayscale(40%);">
+                <div class="product-info">
+                    <span class="product-category" style="color: #c91818; font-weight: bold;">Laníamento em 10/05/2026</span>
+                     <a href="produto.html" style="color: inherit; text-decoration: none;"><h3 class="product-title">Campanha Épica: As Cinzas do Império</h3></a>
+                    <div class="product-price">
+                        R$ 180,00
+                        <small>ou 6x de R$ 30,00 sem juros</small>
+                    </div>
+                    <button class="btn-add" style="background: #c91818; color: white;">Garantir na Prí-venda</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rolagem Crítica Editora LTDA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

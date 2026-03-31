@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Rolagem Crítica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><marquee behavior="scroll" direction="left">Frete grátis em compras acima de R$ 200,00 para as regiões Sul e Sudeste</marquee></div>
+    <header>
+        <a href="index.html" class="logo">Rolagem Crítica</a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando?">
+            <button type="submit" onclick="window.location.href='pre-vendas.html'; return false;">Buscar</button>
+        </div>
+        <div class="header-actions">
+            <a href="cadastro.html">Minha Conta</a>
+            <a href="carrinho.html">Carrinho (0)</a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="rpg-de-mesa.html">RPG de Mesa</a></li>
+            <li><a href="board-games.html">Board Games</a></li>
+            <li><a href="literatura.html">Literatura Fantástica</a></li>
+            <li><a href="acessorios.html">Acessórios & Dados</a></li>
+            <li><a href="pre-vendas.html">Pré-vendas</a></li>
+        </ul>
+    </nav>
+    
+    <main class="section-container form-wrapper">
+        <div class="form-container" style="max-width: 500px; margin: 4rem auto;">
+            <h1 class="section-title">Acessar Conta</h1>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--gray);">Continue de onde você parou.</p>
+            
+            <form id="login-form" action="#" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
+                    <div style="text-align: right; margin-top: 0.5rem;">
+                        <a href="recuperar-senha.html" style="font-size: 0.85rem; color: var(--primary);">Esqueceu sua senha?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-submit" style="margin-top: 2rem;">Entrar</button>
+                
+                <div class="form-footer">
+                    Ainda não tem conta? <a href="cadastro.html">Cadastre-se aqui</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rolagem Crítica Editora LTDA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

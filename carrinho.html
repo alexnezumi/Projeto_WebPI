@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | Rolagem Crítica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="topbar"><marquee behavior="scroll" direction="left">Frete grátis em compras acima de R$ 200,00 para as regiões Sul e Sudeste</marquee></div>
+    <header>
+        <a href="index.html" class="logo">Rolagem Crítica</a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando?">
+            <button type="submit" onclick="realizarBusca(event)">Buscar</button>
+        </div>
+        <div class="header-actions">
+            <a href="login.html">Minha Conta</a>
+            <a href="carrinho.html" style="color: var(--primary);">Carrinho (0)</a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="rpg-de-mesa.html">RPG de Mesa</a></li>
+            <li><a href="board-games.html">Board Games</a></li>
+            <li><a href="literatura.html">Literatura Fantástica</a></li>
+            <li><a href="acessorios.html">Acessórios & Dados</a></li>
+            <li><a href="pre-vendas.html">Pré-vendas</a></li>
+        </ul>
+    </nav>
+    
+    <main class="section-container">
+        <h1 class="section-title" style="text-align: left;">Meu Carrinho</h1>
+        
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items-container"></div>
+            <div class="cart-summary">
+                <h3 style="margin-bottom: 1.5rem; text-transform: uppercase;">Resumo do Pedido</h3>
+                
+                <div class="summary-row">
+                    <span>Subtotal (3 itens)</span>
+                    <span>R$ 259,70</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span id="cart-frete-val" style="color: #666; font-weight: bold;">--</span>
+                </div>
+                
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label style="font-size: 0.8rem;">Calcular Frete</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="input-cep" placeholder="Digite seu CEP" style="border-radius: 4px; width: 100%;">
+                        <button type="button" class="btn" id="btn-calcular-frete" style="padding: 0.8rem 1rem; border-radius: 4px;">Calcular</button>
+                    </div>
+                    <div id="frete-msg" style="font-size: 0.8rem; color: #d32f2f; margin-top: 0.5rem;"></div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label style="font-size: 0.8rem;">Cupom de Desconto</label>
+                    <div style="display: flex;">
+                        <input type="text" placeholder="Insira o código" style="border-right: none; border-radius: 4px 0 0 4px;">
+                        <button type="button" class="btn" style="padding: 0.8rem 1rem; border-radius: 0 4px 4px 0;">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span style="color: var(--primary);">R$ 259,70</span>
+                </div>
+
+                <div style="text-align: right; font-size: 0.85rem; color: var(--gray); margin-bottom: 1rem;">
+                    ou em até 6x de R$ 43,28 sem juros
+                </div>
+
+                <a href="checkout.html" class="btn btn-checkout">Finalizar Compra</a>
+                <a href="index.html" style="display: block; text-align: center; margin-top: 1rem; color: var(--gray); text-decoration: underline; font-size: 0.9rem;">Continuar Comprando</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rolagem Crítica Editora LTDA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

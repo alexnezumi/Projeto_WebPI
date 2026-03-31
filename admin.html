@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Rolagem Crítica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Rolagem Crítica - ADMIN</a>
+        <div class="header-actions">
+            <a href="index.html">Ver Loja</a>
+        </div>
+    </header>
+
+    <main class="profile-grid">
+        <!-- Sidebar Menu -->
+        <aside class="profile-menu">
+            <h3>Painel Admin</h3>
+            <ul id="admin-tabs-nav">
+                <li><a class="active" data-target="tab-resumo">Resumo</a></li>
+                <li><a data-target="tab-pedidos">Gestão de Pedidos</a></li>
+                <li><a data-target="tab-estoque">Controle de Estoque</a></li>
+                <li><a data-target="tab-usuarios">Usuários</a></li>
+                <li><a id="admin-logout-btn" style="color: #d32f2f; margin-top: 1rem; border-color: transparent;">Sair</a></li>
+            </ul>
+        </aside>
+
+        <!-- Conteúdo Mutável -->
+        <section class="profile-content">
+            
+            <!-- TAB: RESUMO -->
+            <div id="tab-resumo" class="profile-tab active">
+                <h2 style="margin-bottom: 2rem; border-bottom: 2px solid #333; padding-bottom: 1rem;">Visão Geral</h2>
+                <div class="profile-form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+                    <div style="background: #111; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; text-align: center;">
+                        <h3 style="color: var(--gray); font-size: 1rem;">Total Vendido</h3>
+                        <p id="admin-total-vendido" style="font-size: 2rem; color: var(--primary); font-weight: bold; margin-top: 0.5rem;">R$ 0,00</p>
+                    </div>
+                    <div style="background: #111; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; text-align: center;">
+                        <h3 style="color: var(--gray); font-size: 1rem;">Pedidos Pendentes</h3>
+                        <p id="admin-pedidos-pendentes" style="font-size: 2rem; color: #fff; font-weight: bold; margin-top: 0.5rem;">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: PEDIDOS -->
+            <div id="tab-pedidos" class="profile-tab">
+                <h2 style="margin-bottom: 2rem; border-bottom: 2px solid #333; padding-bottom: 1rem;">Todos os Pedidos</h2>
+                <div id="admin-pedidos-container">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+
+            <!-- TAB: ESTOQUE -->
+            <div id="tab-estoque" class="profile-tab">
+                <h2 style="margin-bottom: 2rem; border-bottom: 2px solid #333; padding-bottom: 1rem;">Estoque de Produtos</h2>
+                <div id="admin-estoque-container" style="background:#111; padding:1.5rem; border-radius:8px; border:1px solid #333; overflow-x: auto;">
+                    <table style="width: 100%; text-align: left; border-collapse: collapse; color: var(--light);">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <th style="padding: 10px;">ID</th>
+                                <th style="padding: 10px;">Nome do Produto</th>
+                                <th style="padding: 10px;">Estoque</th>
+                                <th style="padding: 10px;">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-estoque-tbody">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: USUÁRIOS -->
+            <div id="tab-usuarios" class="profile-tab">
+                <h2 style="margin-bottom: 2rem; border-bottom: 2px solid #333; padding-bottom: 1rem;">Clientes Cadastrados</h2>
+                <div id="admin-usuarios-container" style="background:#111; padding:1.5rem; border-radius:8px; border:1px solid #333; overflow-x: auto;">
+                    <table style="width: 100%; text-align: left; border-collapse: collapse; color: var(--light);">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <th style="padding: 10px;">Nome</th>
+                                <th style="padding: 10px;">E-mail</th>
+                                <th style="padding: 10px;">Admin?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-usuarios-tbody">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+

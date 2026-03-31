@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra | Rolagem Crítica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="topbar"><marquee behavior="scroll" direction="left">Frete grátis em compras acima de R$ 200,00 para as regiões Sul e Sudeste</marquee></div>
+    <header>
+        <a href="index.html" class="logo">Rolagem Crítica</a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando?">
+            <button type="button" onclick="realizarBusca(event)">Buscar</button>
+        </div>
+        <div class="header-actions">
+            <a href="login.html">Minha Conta</a>
+            <a href="carrinho.html">Carrinho (0)</a>
+        </div>
+    </header>
+
+    <main class="checkout-grid">
+        <div class="checkout-forms">
+            
+            <!-- SEÇÃO DE ENDEREÇO -->
+            <div class="checkout-section">
+                <h2>1. Endereço de Entrega</h2>
+                
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="checkout-cep">CEP *</label>
+                        <input type="text" id="checkout-cep" placeholder="00000-000" maxlength="9">
+                        <div id="checkout-cep-msg" style="font-size: 0.85rem; margin-top: 5px;"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 3;">
+                        <label for="checkout-rua">Rua / Logradouro *</label>
+                        <input type="text" id="checkout-rua" placeholder="Ex: Av. Paulista">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="numero">Número *</label>
+                        <input type="text" id="numero" placeholder="Ex: 1000">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento" placeholder="Apto, Bloco...">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="bairro">Bairro *</label>
+                        <input type="text" id="bairro" placeholder="Seu bairro">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="cidade">Cidade *</label>
+                        <input type="text" id="cidade" placeholder="Sua cidade">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="estado">Estado *</label>
+                        <select id="estado">
+                            <option value="">Selecione...</option>
+                            <option value="SP">SP</option><option value="RJ">RJ</option>
+                            <option value="MG">MG</option><option value="ES">ES</option>
+                            <option value="PR">PR</option><option value="SC">SC</option><option value="RS">RS</option>
+                            <option value="OUTROS">Outros Estados</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SEÇÃO DE PAGAMENTO -->
+            <div class="checkout-section">
+                <h2>2. Método de Pagamento</h2>
+                
+                <div class="payment-methods" id="metodos-pagamento">
+                    <!-- PIX -->
+                    <label class="pay-method selected" data-method="pix">
+                        <input type="radio" name="pag" id="pix" value="PIX" checked>
+                        <div class="pay-method-label">
+                            <span style="font-size: 1.5rem; color: #32bcad;">❖ PIX</span>
+                            <span>Aprovação Imediata</span>
+                            <small>10% de desconto</small>
+                        </div>
+                    </label>
+
+                    <!-- Cartão -->
+                    <label class="pay-method" data-method="cartao">
+                        <input type="radio" name="pag" id="cartao" value="Cartao">
+                        <div class="pay-method-label">
+                            <span style="font-size: 1.5rem;">💳 Cartão</span>
+                            <span>Até 6x sem juros ou 12x com juros</span>
+                            <small>Todas as bandeiras</small>
+                        </div>
+                    </label>
+
+                    <!-- Container do PIX Dinâmico -->
+                    <div class="pix-details" style="grid-column: 1 / -1;">
+                        <h3 style="margin-bottom: 1rem; color: #fff;">Pagamento via PIX</h3>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem;">Ao finalizar a compra, o QR Code será gerado para o pagamento. O seu pedido será confirmado automaticamente.</p>
+                        <div style="background: white; padding: 1rem; width: 150px; margin: 0 auto; border-radius: 8px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ExemploPagamentoPixRolagemCritica" alt="QR Code Falso" style="width: 100%;">
+                        </div>
+                    </div>
+
+                    <!-- Container do Cartão Dinâmico -->
+                    <div class="card-details" style="grid-column: 1 / -1;">
+                        <div class="form-group">
+                            <label for="nome_cartao">Nome impresso no Cartão *</label>
+                            <input type="text" id="nome_cartao" placeholder="Ex: JOAO C SILVA">
+                        </div>
+                        <div class="form-group">
+                            <label for="num_cartao">Número do Cartão *</label>
+                            <input type="text" id="num_cartao" placeholder="0000 0000 0000 0000" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="val_cartao">Validade *</label>
+                                <input type="text" id="val_cartao" placeholder="MM/AA" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv_cartao">CVV *</label>
+                                <input type="text" id="cvv_cartao" placeholder="123" maxlength="4">
+                            </div>
+                            <div class="form-group">
+                                <label for="parc_cartao">Parcelas</label>
+                                <select id="parc_cartao">
+                                    <option value="1">1x sem juros</option>
+                                    <option value="2">2x sem juros</option>
+                                    <option value="3">3x sem juros</option>
+                                    <option value="4">4x sem juros</option>
+                                    <option value="5">5x sem juros</option>
+                                    <option value="6">6x sem juros</option>
+                                    <option value="7">7x com juros</option>
+                                    <option value="8">8x com juros</option>
+                                    <option value="9">9x com juros</option>
+                                    <option value="10">10x com juros</option>
+                                    <option value="11">11x com juros</option>
+                                    <option value="12">12x com juros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="checkout-summary">
+            <h2 style="margin-bottom: 1.5rem; border-bottom: 2px solid #333; padding-bottom: 1rem;">Resumo do Pedido</h2>
+            <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 1rem;"><span id="checkout-subtotal-label">Subtotal (0 itens)</span><span id="checkout-subtotal-val">R$ 0,00</span></div>
+            <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 1rem;"><span>Desconto PIX</span><span id="checkout-desc-val" style="color: #32bcad; font-weight: bold;">R$ 0,00</span></div>
+            <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px dashed #333; padding-bottom: 1rem;"><span>Frete</span><span id="checkout-frete-val" style="color: #666; font-weight: bold;">--</span></div>
+            <div class="summary-row summary-total" style="display: flex; justify-content: space-between; margin-bottom: 2rem; font-size: 1.2rem; font-weight: bold;"><span>Total</span><span id="checkout-total-val" style="color: var(--primary); font-size: 1.5rem;">R$ 0,00</span></div>
+            <button class="btn btn-checkout" style="width: 100%;" onclick="finalizarCompra(event)">Confirmar Pagamento</button>
+            <div style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #666;">
+                🔒 Ambiente 100% Seguro
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rolagem Crítica Editora LTDA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
