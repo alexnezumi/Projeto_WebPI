@@ -117,24 +117,52 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
         const qtdInput = document.getElementById('qtd');
         const addBtn = document.querySelector('.product-detail-info .btn');
         if (titleEl && stockInfo) {
-            const tituloPagina = normalizeProductName(titleEl.textContent || '');
-            const estMock = JSON.parse(localStorage.getItem('rolagem_estoque_mock')) || [];
-            const produtoEstoque = estMock.find(x => normalizeProductName(x.nome) === tituloPagina);
-            const qtdDisponivel = produtoEstoque ? Number(produtoEstoque.qtd) || 0 : 0;
+            const updateProductStockView = () => {
+                const tituloPagina = normalizeProductName(titleEl.textContent || '');
+                const estMock = JSON.parse(localStorage.getItem('rolagem_estoque_mock')) || [];
+                const produtoEstoque = estMock.find(x => normalizeProductName(x.nome) === tituloPagina);
+                const estoqueTotal = produtoEstoque ? Number(produtoEstoque.qtd) || 0 : 0;
 
-            stockInfo.textContent = 'Estoque disponivel: ' + qtdDisponivel + ' unidade(s)';
-            stockInfo.style.color = qtdDisponivel > 0 ? 'var(--gray)' : '#c91818';
+                const carrinho = JSON.parse(localStorage.getItem('rolagem_carrinho')) || [];
+                const itemNoCarrinho = carrinho.find(i => normalizeProductName(i.titulo || i.id) === tituloPagina);
+                const qtdNoCarrinho = itemNoCarrinho ? Number(itemNoCarrinho.quantidade) || 0 : 0;
+
+                const qtdDisponivel = Math.max(estoqueTotal - qtdNoCarrinho, 0);
+
+                let selecionada = 1;
+                if (qtdInput) {
+                    selecionada = parseInt(qtdInput.value, 10);
+                    if (isNaN(selecionada) || selecionada < 1) selecionada = 1;
+                    if (qtdDisponivel === 0) selecionada = 0;
+                    else if (selecionada > qtdDisponivel) selecionada = qtdDisponivel;
+
+                    qtdInput.max = String(Math.max(qtdDisponivel, 1));
+                    qtdInput.value = String(selecionada);
+                    qtdInput.disabled = qtdDisponivel <= 0;
+                }
+
+                const restanteAposSelecao = Math.max(qtdDisponivel - selecionada, 0);
+                if (qtdDisponivel > 0) {
+                    stockInfo.textContent = 'Estoque disponivel: ' + qtdDisponivel + ' unidade(s) | Restam ' + restanteAposSelecao + ' apos esta selecao';
+                    stockInfo.style.color = 'var(--gray)';
+                } else {
+                    stockInfo.textContent = 'Produto esgotado no momento';
+                    stockInfo.style.color = '#c91818';
+                }
+
+                if (addBtn) {
+                    addBtn.disabled = qtdDisponivel <= 0;
+                    addBtn.style.opacity = qtdDisponivel <= 0 ? '0.6' : '1';
+                    addBtn.style.cursor = qtdDisponivel <= 0 ? 'not-allowed' : 'pointer';
+                }
+            };
 
             if (qtdInput) {
-                qtdInput.max = String(Math.max(qtdDisponivel, 1));
-                qtdInput.value = qtdDisponivel > 0 ? '1' : '0';
-                qtdInput.disabled = qtdDisponivel <= 0;
+                qtdInput.addEventListener('input', updateProductStockView);
+                qtdInput.addEventListener('change', updateProductStockView);
             }
-            if (addBtn) {
-                addBtn.disabled = qtdDisponivel <= 0;
-                addBtn.style.opacity = qtdDisponivel <= 0 ? '0.6' : '1';
-                addBtn.style.cursor = qtdDisponivel <= 0 ? 'not-allowed' : 'pointer';
-            }
+            window.addEventListener('cartUpdated', updateProductStockView);
+            updateProductStockView();
         }
     }
 
@@ -144,6 +172,23 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
         const nomeInput = document.getElementById('nome');
         const telefoneInput = document.getElementById('telefone');
         const cpfInput = document.getElementById('cpf');
+        const registerFeedback = document.getElementById('register-feedback');
+
+        const setRegisterFeedback = (msg, field) => {
+            if (registerFeedback) {
+                registerFeedback.style.color = '#d32f2f';
+                registerFeedback.textContent = msg || '';
+            }
+            if (field && typeof field.focus === 'function') {
+                field.focus();
+                field.setAttribute('aria-invalid', 'true');
+            }
+        };
+        const clearInvalid = () => {
+            [nomeInput, telefoneInput, cpfInput, document.getElementById('email'), document.getElementById('data_nasc'), document.getElementById('senha'), document.getElementById('confirma_senha')]
+                .filter(Boolean)
+                .forEach(el => el.removeAttribute('aria-invalid'));
+        };
 
         if (cpfInput) {
             cpfInput.addEventListener('input', function () {
@@ -172,30 +217,40 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
 
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            clearInvalid();
+            if (registerFeedback) registerFeedback.textContent = '';
             const nome = (nomeInput ? nomeInput.value : '').replace(/\s+/g, ' ').trim();
             const email = document.getElementById('email').value.trim().toLowerCase();
             const telefone = (telefoneInput ? telefoneInput.value : '').trim();
             const cpf = (cpfInput ? cpfInput.value : '').trim();
-            const dataNasc = (document.getElementById('data_nasc')?.value || '').trim();
-            const senha = document.getElementById('senha').value;
-            const confirma_senha = document.getElementById('confirma_senha').value;
+            const dataNascInput = document.getElementById('data_nasc');
+            const dataNasc = (dataNascInput?.value || '').trim();
+            const senhaInput = document.getElementById('senha');
+            const confirmaSenhaInput = document.getElementById('confirma_senha');
+            const emailInput = document.getElementById('email');
+            const senha = senhaInput.value;
+            const confirma_senha = confirmaSenhaInput.value;
 
-            if (!nome || nome.length < 10) return alert('O nome deve ter pelo menos 10 caracteres.');
-            if (/\d/.test(nome)) return alert('O nome nao pode conter numeros.');
-            if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) return alert('O nome deve conter apenas letras e espacos.');
+            if (!nome || nome.length < 10) return setRegisterFeedback('O nome deve ter pelo menos 10 caracteres.', nomeInput);
+            if (/\d/.test(nome)) return setRegisterFeedback('O nome nao pode conter numeros.', nomeInput);
+            if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) return setRegisterFeedback('O nome deve conter apenas letras e espacos.', nomeInput);
 
-            if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) return alert('CPF invalido. Use o formato 000.000.000-00.');
-            if (!/^\(\d{2}\)\s?\d{4,5}-\d{4}$/.test(telefone)) return alert('Telefone invalido. Use o formato (DD) 99999-9999.');
-            if (!dataNasc) return alert('Informe a data de nascimento.');
+            if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) return setRegisterFeedback('CPF invalido. Use o formato 000.000.000-00.', cpfInput);
+            if (!/^\(\d{2}\)\s?\d{4,5}-\d{4}$/.test(telefone)) return setRegisterFeedback('Telefone invalido. Use o formato (DD) 99999-9999.', telefoneInput);
+            if (!dataNasc) return setRegisterFeedback('Informe a data de nascimento.', dataNascInput);
 
-            if (senha !== confirma_senha) return alert('As senhas nao coincidem.');
-            if (senha.length < 8) return alert('A senha deve ter no minimo 8 caracteres.');
+            if (senha !== confirma_senha) return setRegisterFeedback('As senhas nao coincidem.', confirmaSenhaInput);
+            if (senha.length < 8) return setRegisterFeedback('A senha deve ter no minimo 8 caracteres.', senhaInput);
 
             let usuarios = JSON.parse(localStorage.getItem('rolagem_usuarios')) || [];
-            if (usuarios.find(user => user.email.toLowerCase() === email)) return alert('E-mail ja cadastrado!');
+            if (usuarios.find(user => user.email.toLowerCase() === email)) return setRegisterFeedback('E-mail ja cadastrado!', emailInput);
 
             usuarios.push({ id: Date.now(), nome: nome, email: email, telefone: telefone, cpf: cpf, data_nasc: dataNasc, senha: senha });
             localStorage.setItem('rolagem_usuarios', JSON.stringify(usuarios));
+            if (registerFeedback) {
+                registerFeedback.style.color = '#32bcad';
+                registerFeedback.textContent = 'Cadastro efetuado com sucesso! Redirecionando...';
+            }
             alert('Cadastro efetuado com sucesso!');
             window.location.href = 'login.html';
         });
@@ -212,14 +267,14 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
 
             if (user) {
                 localStorage.setItem('rolagem_usuarioLogado', JSON.stringify({ id: user.id, nome: user.nome, email: user.email, isAdmin: user.isAdmin }));
-                alert('Bem-vinfo de volta, ' + user.nome + '!');
+                alert('Bem-vindo de volta, ' + user.nome + '!');
                 if (user.isAdmin) {
                     window.location.href = 'admin.html';
                 } else {
                     window.location.href = 'index.html';
                 }
             } else {
-                alert('E-mail ou senha inforretos.');
+                alert('E-mail ou senha incorretos.');
             }
         });
     }
@@ -492,7 +547,7 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
             const tituloNorm = normalizeProductName(titulo);
             let prodencontrado = estMock.find(x => normalizeProductName(x.nome) === tituloNorm);
             if (prodencontrado && prodencontrado.qtd < 1) {
-                return alert('Ops! Este produto esta esgotado no momento. ("' + titulo + '")');
+                return alert('Ops! Este produto esta esgotado no momento ("' + titulo + '").');
             }
 
             const preco = parseFloat(precoTexto.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()) || 0;
@@ -503,16 +558,17 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
             if (idx > -1) {
                 let currentMax = prodencontrado ? prodencontrado.qtd : 0;
                 let available = currentMax > 10 ? 10 : currentMax;
-                if (car[idx].quantidade + quantidadeReq > available) return alert('estoque insuficiente! Voce so pode adicionar ate ' + available + ' unidades deste produto.');
+                if (car[idx].quantidade + quantidadeReq > available) return alert('Estoque insuficiente! Voce so pode adicionar ate ' + available + ' unidades deste produto.');
                 car[idx].quantidade += quantidadeReq;
             } else {
                 let currentMax = prodencontrado ? prodencontrado.qtd : 0;
                 let available = currentMax > 10 ? 10 : currentMax;
-                if (quantidadeReq > available) return alert('estoque insuficiente! Voce so pode adicionar ate ' + available + ' unidades deste produto.');
+                if (quantidadeReq > available) return alert('Estoque insuficiente! Voce so pode adicionar ate ' + available + ' unidades deste produto.');
                 car.push({ id: titulo, titulo, preco, imagem, quantidade: quantidadeReq });
             }
 
             localStorage.setItem('rolagem_carrinho', JSON.stringify(car));
+            window.dispatchEvent(new Event('cartUpdated'));
             atualizarContador();
             alert(titulo + ' foi adicionado ao carrinho com sucesso!');
         });
@@ -562,7 +618,7 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
                 if (spanFrete) {
                     if (frete === 0) {
                         spanFrete.textContent = 'Gratis';
-                        spanFrete.className = 'frete-val-Gratis';
+                        spanFrete.className = 'frete-val-gratis';
                     } else {
                         spanFrete.textContent = 'R$ ' + frete.toFixed(2).replace('.', ',');
                         spanFrete.className = 'frete-val-pago';
@@ -701,7 +757,7 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
     // CHECKOUT PAGE
     if (window.location.pathname.includes('checkout.html')) {
         let car = JSON.parse(localStorage.getItem('rolagem_carrinho')) || [];
-        if (car.length === 0) { alert('carrinho vazio.'); window.location.href='index.html'; return; }
+        if (car.length === 0) { alert('Carrinho vazio.'); window.location.href='index.html'; return; }
         if (!localStorage.getItem('rolagem_usuarioLogado')) { alert('Faca login primeiro.'); window.location.href='login.html'; return; }
 
         const renderResumoCheckout = () => {
@@ -726,7 +782,7 @@ if (tempLoggedUser && tempLoggedUser.isAdmin) {
 
             let cFrete = document.getElementById('checkout-frete-val');
             if (cFrete) {
-                if (frete === 0) { cFrete.textContent = 'Gratis'; cFrete.className = 'frete-val-Gratis'; }
+                if (frete === 0) { cFrete.textContent = 'Gratis'; cFrete.className = 'frete-val-gratis'; }
                 else { cFrete.textContent = 'R$ ' + frete.toFixed(2).replace('.', ','); cFrete.className = 'frete-val-pago'; }
             }
             
